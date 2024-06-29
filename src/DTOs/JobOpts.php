@@ -12,4 +12,6 @@ class JobOpts extends DataTransferObject
     public int $attempts = 1;
     public int $timestamp;
     public int $delay = 0;
+    public bool $removeOnComplete = false;
+    public bool $removeOnFail = false;
 }
