@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Ilzrv\PhpBullQueue\Clients;
 
@@ -13,13 +13,16 @@ class PhpRedisQueue implements RedisQueue
 
     public function __construct(RedisConfig $config, Redis $redis = null)
     {
-        if (!is_null($redis)) {
+        if (! is_null($redis)) {
             $this->client = $redis;
         } else {
             $this->client = new Redis();
 
             $this->client->connect($config->host, $config->port);
-            $this->client->auth($config->password);
+            if ($config->password) {
+                $this->client->auth($config->password);
+            }
+            $this->client->select($config->db);
         }
     }
 
